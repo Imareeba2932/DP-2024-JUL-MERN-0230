@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 
 const LoginSchema = Yup.object().shape({
   email : Yup.string()
-  .email('Please enater a valid email address')
+  .email('Please enter a valid email address')
   .required('Email is required'),
 
   password: Yup.string()
@@ -27,7 +27,10 @@ const Login = () => {
     {
       console.log(values)
       resetForm()
-    }
+    },
+    validationSchema: LoginSchema
+    
+  
   })
   return (
     <div className='flex justify-center h-screen items-center'>
@@ -44,6 +47,10 @@ const Login = () => {
             onChange = {loginForm.handleChange}
             value = {loginForm.values.email}
           />
+          {loginForm.errors.email && loginForm.touched.email ? (
+            <div className='text-red-500 text-sm'>{loginForm.errors.email}</div>
+          ) : null}
+
           <label htmlFor="">Password</label>
           <input
             className="w-full p-2 border-2 border-gray-300 rounded-md mb-5"
@@ -52,6 +59,10 @@ const Login = () => {
             onChange = {loginForm.handleChange}
             value = {loginForm.values.password}
           />
+          {loginForm.errors.password && loginForm.touched.password ? (
+            <div className='text-red-500 text-sm'>{loginForm.errors.password}</div>
+          ) : null}
+
           <button className="bg-blue-500 py-2 px-4 text-white rounded-md w-full mt-5">
             Submit
           </button>
